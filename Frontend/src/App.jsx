@@ -1,9 +1,13 @@
+import HomePage from "./components/Homepage"
 
 function App() {
   
 
   return (
-    <h1>Hello World</h1>
+    <>
+      <HomePage />
+    
+    </>
   )
 }
 

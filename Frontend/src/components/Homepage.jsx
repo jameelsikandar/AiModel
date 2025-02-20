@@ -24,28 +24,33 @@ export default function HomePage() {
       setError('Please select an image first.');
       return;
     }
-
+  
     setIsLoading(true);
     setError('');
     setPrediction(null);
-
+  
     try {
-      // Add your API call here
-      // const formData = new FormData();
-      // formData.append('image', selectedFile);
-      // const response = await fetch('your-api-endpoint', {
-      //   method: 'POST',
-      //   body: formData
-      // });
-      // const result = await response.json();
-      // setPrediction(result);
-
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+  
+      const response = await fetch('http://localhost:8000/predict/', {
+        method: 'POST',
+        body: formData
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to get response from server');
+      }
+  
+      const result = await response.json();
+      setPrediction(result);
     } catch (err) {
       setError('An error occurred while processing the image.');
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   const handleReset = () => {
     setSelectedFile(null);
